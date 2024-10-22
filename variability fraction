@@ -1,0 +1,40 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = pd.read_csv('something.csv')
+
+# Extract source IDs and flux density values
+sources = data['whatever the field is']
+flux_densities = 'extract the flux density values(depend on table)' #this will probably be nx10 d array 
+
+# Number of epochs
+N_epochs = 10
+
+mean_fluxes = []
+variabilities = []
+percent_variabilities = []
+
+# Function to calculate variability for each source
+def calculate_variability(fluxes):
+    # Calculate mean flux
+    mean_flux = np.mean(fluxes)
+    
+    # Calculate standard deviation of flux
+    std_flux = np.std(fluxes) 
+    
+    # Calculate fractional variability (F_var)
+    if mean_flux != 0:
+        F_var = std_flux / mean_flux
+    else:
+        F_var = 0
+    
+    return mean_flux, F_var, F_var * 100  
+
+# Loop over each source 
+for x in flux_densities:
+    mean_flux, F_var, percent_var = calculate_variability(x)
+    mean_fluxes.append(mean_flux)
+    variabilities.append(F_var)
+    percent_variabilities.append(percent_var)
+
