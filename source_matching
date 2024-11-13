@@ -1,0 +1,34 @@
+import pandas as pd
+import numpy as np
+file1='epoch1.csv'
+file2='epoch2.csv'
+file3='epoch3.csv'
+file4='epoch4.csv'
+
+df1 = pd.read_csv(file1)
+df2 = pd.read_csv(file2)
+df3 = pd.read_csv(file3)
+df4 = pd.read_csv(file4)
+
+df1_coords = df1.iloc[:, [6, 8]]
+df2_coords = df2.iloc[:, [6, 8]]
+df3_coords = df3.iloc[:, [6, 8]]
+df4_coords = df4.iloc[:, [6, 8]]
+
+matching_rows = []
+def row_matches(df_coords, ra, dec):
+     return ((abs(df_coords.iloc[:, 0] - ra) < 0.001) & (abs(df_coords.iloc[:, 1] - dec) < 0.001))
+
+for i, (ra, dec) in df4_coords.iterrows():
+     diff1 = row_matches(df1_coords, ra, dec)
+     diff2 = row_matches(df2_coords, ra, dec)
+     diff3 = row_matches(df3_coords, ra, dec)
+
+
+    if diff1 and diff2 and diff3
+        matching_rows.append((ra, dec))
+
+# Print or save the results
+print("Matching rows:", matching_rows)
+
+
